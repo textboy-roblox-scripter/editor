@@ -14,8 +14,8 @@ local Window = Rayfield:CreateWindow({
        FileName = ""
     },
     Discord = {
-       Enabled = true,
-       Invite = "https://discord.gg/fxeQxmYCB5",
+       Enabled = false,
+       Invite = "",
        RememberJoins = true
     },
     KeySystem = false,
@@ -108,7 +108,8 @@ seeds = {
     ["Ember Lily"] = 0,
     ["Foxglove"] = 0,
     ["Rose"] = 0,
-    ["Sunflower"] = 0
+    ["Sunflower"] = 0,
+    ["Lilac"] = 0
 }
 local a
 local b
