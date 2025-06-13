@@ -37,7 +37,7 @@ PetTab:CreateButton({
 			return
 		end
 
-		local pet = Petassets:FindFirstChild(petToSpawn)
+		local pet = PetAssets:FindFirstChild(petToSpawn)
 		if not pet then
 			warn("Pet not found in Petassets:", petToSpawn)
 			return
@@ -297,5 +297,46 @@ EggPredictorTab:CreateButton({
         end))
 
         rsRun.PreRender:Connect(updateLabels)
+    end,
+})
+local EggSpawnerTab = Window:CreateTab("Egg Spawner")
+
+local eggName = ""
+
+EggSpawnerTab:CreateTextBox({
+    Name = "Egg Name",
+    TextDisappear = false,
+    PlaceholderText = "Enter egg name (e.g. ShadowDragonEgg)",
+    Callback = function(text)
+        eggName = text
+    end,
+})
+
+EggSpawnerTab:CreateButton({
+    Name = "Spawn Egg",
+    Callback = function()
+        if eggName == "" then
+            warn("Code Phantom: No egg name entered!")
+            return
+        end
+
+        local ReplicatedStorage = game:GetService("ReplicatedStorage")
+        local EggModels = ReplicatedStorage:FindFirstChild("EggModels")
+
+        if not EggModels then
+            warn("Code Phantom: EggModels folder not found in ReplicatedStorage!")
+            return
+        end
+
+        local eggTemplate = EggModels:FindFirstChild(eggName)
+        if not eggTemplate then
+            warn(`Code Phantom: Egg '{eggName}' not found in EggModels!`)
+            return
+        end
+
+        local clonedEgg = eggTemplate:Clone()
+        clonedEgg.Parent = workspace
+        clonedEgg:SetPrimaryPartCFrame(game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0, 5, 0))
+        print(`Code Phantom: Spawned egg '{eggName}'`)
     end,
 })
